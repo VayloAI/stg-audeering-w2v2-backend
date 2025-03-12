@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 
-import { HealthResponse } from "../../models/health.model";
+import { HealthResponse } from "@/models/health.model";
 
 export default new Elysia().group("/health", (app) =>
   app.get(
