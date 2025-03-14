@@ -10,7 +10,7 @@
     "migrate:down": "MIGRATOR_ACTION=downgrade bun run src/database/migrator.ts",
     "start:cold": "bun run migrate && bun run start",
     "lint": "bunx oxlint --ignore-path=.oxlintignore && bunx eslint",
-    "sub:custom": "NODE_ENV=production bun run src/events/subscribers/custom.ts"
+    "sub:stg": "NODE_ENV=production bun run src/events/subscribers/stg.ts"
   },
   "dependencies": {
     "@alexanderolsen/libsamplerate-js": "^2.1.2",
@@ -24,21 +24,21 @@
     "ioredis": "^5.6.0",
     "kysely": "^0.27.6",
     "onnxruntime-node": "^1.21.0",
-    "pg": "^8.13.3"
+    "pg": "^8.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/pg": "^8.11.11",
     "bun-types": "latest",
     "eslint": "^9.22.0",
-    "eslint-plugin-oxlint": "^0.15.13",
+    "eslint-plugin-oxlint": "^0.15.15",
     "husky": "^9.1.7",
-    "oxlint": "^0.15.13",
+    "oxlint": "^0.15.15",
     "pino": "^9.6.0",
     "pino-loki": "^2.5.0",
     "pino-pretty": "^13.0.0",
     "ts-proto": "^2.6.1",
-    "typescript-eslint": "^8.26.0"
+    "typescript-eslint": "^8.26.1"
   },
   "type": "module",
   "module": "src/index.ts"
