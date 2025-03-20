@@ -1,8 +1,13 @@
-## component-template
+## STG audEERING W2V2 Component
 
-This is a generic component template for Vaylo backend. This provides the basis for easily creating your own Vaylo AI model backend
+> [!WARNING]
+> This isn't a final version of the API. In the future, the format of responses and requests will be converted to protobuf.
 
-## How to use?
+Uses fine-tuned W2V2 onnx model by audEERING to perform recognize gender by audio.
+
+## How to Run?
+
+Before all other guides
 
 1. Clone this repo:
 
@@ -10,27 +15,11 @@ This is a generic component template for Vaylo backend. This provides the basis 
 git clone https://github.com/VayloAI/component-template
 ```
 
-2. Install Bun
-
-3. Install depends
-
-```bash
-bun install
-```
-
-4. Update `./src/config.ts` (and `.env` if needed) with your project-specific info
-
-5. Implement your STT / STG / TTS / Translate model logic in `./src/tasks/<filename>` (filename can be `stt`, `tts`, `stg` or `translate`)
-
-6. Create DB schema in `./src/schemas/<filename>` and implement your DB logic in `./src/database/repositories/<filename>`, also create migrations in `./src/database/migrations/<YYYY>-<MM>-<DD>-<desc>`
-
-7. Implement your Cache logic in `./src/cache/repositories/<filename>`
-
-8. Create facade for your DB & Cache logic in `./src/facades/<filename>`
-
-9. Upload to GitHub
-
-## How to Run?
+2. Install nats-server. Enable jetstream and configure `max_payload` to 4MB
+3. Install PostgreSQL 16+
+4. Install Redis 6.2+
+5. [Download](https://zenodo.org/records/7761387) 6/24 layers model converted to onnx
+6. Create `/src/tasks/model` folder and put model file there
 
 ### With Docker?
 
@@ -40,30 +29,31 @@ bun install
 for subscribers
 
 ```bash
-docker build -t subcriber-custom --build-arg SERVICE=sub:custom .
+docker build -t subcriber-stg --build-arg SERVICE=sub:stg .
 ```
 
 for server
 
 ```bash
-docker build -t example-backend --build-arg SERVICE=start:cold .
+docker build -t stg-backend --build-arg SERVICE=start:cold .
 ```
 
 3. Run
 
 ```bash
-docker run --network host subcriber-custom
+docker run --network host subcriber-stg
 ```
 
 ### Without Docker
 
 1. Install Bun
-2. Run
+2. Configure `.env` if need
+3. Run
 
 for subscribers
 
 ```bash
-bun sub:custom
+bun sub:stg
 ```
 
 for server
@@ -75,6 +65,6 @@ bun start:cold
 ## Requirements
 
 - Bun
-- NATS
+- NATS (enable jetstream and configure `max_payload` to 4MB)
 - PostgreSQL
 - Redis
