@@ -4,7 +4,6 @@ WORKDIR /app
 FROM base AS release
 COPY package.json bun.lock tsconfig.json ./
 COPY src src
-COPY scripts scripts
 RUN bun install
 
 USER bun
