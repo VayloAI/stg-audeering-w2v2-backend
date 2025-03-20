@@ -1,5 +1,5 @@
-import { ExampleTable } from "@/schemas/custom";
+import { AudioGenderTable } from "@/schemas/gender";
 
 export interface Database {
-  vaylo_example: ExampleTable;
+  vaylo_audio_gender: AudioGenderTable;
 }

@@ -1,19 +1,20 @@
 import { NatsMessage } from "@vaylo/nats/types/client";
 
-import { client } from "../nats";
+import { client, StreamItem } from "../nats";
 import { log } from "@/logging";
 
 export class BaseSubscriber {
-  stream: string;
+  stream: StreamItem;
   name: string;
-  constructor(stream: string, name: string) {
+  constructor(stream: StreamItem, name: string) {
     this.stream = stream;
     this.name = name;
   }
 
-  async handler(_msg: NatsMessage): Promise<unknown> {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  handler = async (_msg: NatsMessage): Promise<unknown> => {
     throw new Error("Not implemented");
-  }
+  };
 
   async init() {
     log.info(`📡 Subscribing to '${this.stream}' as ${this.name}...`);

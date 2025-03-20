@@ -16,6 +16,7 @@ declare module "bun" {
     REDIS_PORT: number;
     REDIS_USER: string;
     REDIS_PASSWORD: string;
+    REDIS_TTL: number;
     NODE_ENV: string;
   }
 }

@@ -11,7 +11,7 @@ export default Value.Parse(ConfigSchema, {
   },
   cors: {},
   nats: {
-    name: "component_worker",
+    name: "stg_worker",
   },
   logging: {
     level: Bun.env.NODE_ENV === "production" ? "info" : "debug",

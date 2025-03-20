@@ -7,6 +7,9 @@ const {
   nats: { servers, name },
 } = config;
 
+export const streams = ["stg"] as const;
+export type StreamItem = (typeof streams)[number];
+
 export async function init() {
   const client = new NatsClient({
     connection: {
@@ -15,8 +18,11 @@ export async function init() {
     },
     logger: log,
   });
+
   await client.connect();
-  await client.initStream("example", ["example.*"]);
+  for (const stream of streams) {
+    await client.initStream(stream, [`${stream}.*`]);
+  }
 
   return client;
 }
