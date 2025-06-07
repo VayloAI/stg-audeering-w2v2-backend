@@ -1,7 +1,9 @@
 import config from "@/config";
 import { PinoClient } from "@vaylo/pino";
 
-const { loki, level, logPath, logToFile } = config.logging;
+const {
+  logging: { loki, level, logPath, logToFile },
+} = config;
 
 export const loggerClient = new PinoClient({
   loki,
@@ -9,7 +11,5 @@ export const loggerClient = new PinoClient({
   logToFile,
   logPath,
 });
-
-await loggerClient.createLogDir();
 
 export const log = loggerClient.init();
