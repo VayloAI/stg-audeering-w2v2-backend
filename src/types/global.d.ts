@@ -7,6 +7,7 @@ declare module "bun" {
     LOKI_USER: string;
     LOKI_PASSWORD: string;
     LOKI_LABEL: string;
+    NATS_SERVERS: string;
     POSTGRES_NAME: string;
     POSTGRES_HOST: string;
     POSTGRES_PORT: number;

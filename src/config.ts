@@ -12,6 +12,7 @@ export default Value.Parse(ConfigSchema, {
   cors: {},
   nats: {
     name: "stg_worker",
+    servers: Bun.env.NATS_SERVERS?.split(",").map((s) => s.trim()),
   },
   logging: {
     level: Bun.env.NODE_ENV === "production" ? "info" : "debug",

@@ -15,7 +15,7 @@ export const ConfigSchema = t.Object({
     maxAge: t.Number({ default: 86400 }),
   }),
   db: t.Object({
-    name: t.String({ default: "vaylo-stg-backend" }),
+    name: t.String({ default: "stg-backend" }),
     host: t.String({ default: "127.0.0.1" }),
     port: t.Number({ default: 5432 }),
     user: t.String({ default: "postgres" }),
@@ -26,7 +26,7 @@ export const ConfigSchema = t.Object({
     port: t.Number({ default: 6379 }),
     username: t.String({ default: "default" }),
     password: t.String({ default: "" }),
-    prefix: t.String({ default: "vstgb" }),
+    prefix: t.String({ default: "stgb" }),
     ttl: t.Number({ default: 7200 }),
   }),
   logging: LoggingConfig,
