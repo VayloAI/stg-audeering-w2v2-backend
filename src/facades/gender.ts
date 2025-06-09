@@ -57,6 +57,15 @@ export default class AudioGenderFacade extends BaseFacade<
     await this.cacheRepository.create(result);
     return result;
   }
+
+  async delete(fileId: string): Promise<AudioGender | undefined> {
+    const result = await this.dbRepository.delete(fileId);
+    if (result) {
+      await this.cacheRepository.delete(fileId);
+    }
+
+    return result;
+  }
 }
 
 export const audioGenderFacade = new AudioGenderFacade();

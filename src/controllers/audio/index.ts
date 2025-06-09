@@ -4,6 +4,7 @@ import { audioGenderFacade } from "@/facades/gender";
 import { publishRecognizeEvent } from "@/events/publishers/stg";
 import { GenderDataNotFound } from "@/errors";
 
+// todo: move to protobuf with signature
 export default new Elysia().group("/audio", (app) =>
   app
     .post(
@@ -38,6 +39,24 @@ export default new Elysia().group("/audio", (app) =>
       "/gender/:fileId",
       async ({ params: { fileId } }) => {
         const genderData = await audioGenderFacade.get(fileId);
+        if (!genderData) {
+          throw new GenderDataNotFound();
+        }
+
+        return genderData;
+      },
+      {
+        params: t.Object({
+          fileId: t.String({
+            description: "File ID of recognized audio",
+          }),
+        }),
+      },
+    )
+    .delete(
+      "/gender/:fileId",
+      async ({ params: { fileId } }) => {
+        const genderData = await audioGenderFacade.delete(fileId);
         if (!genderData) {
           throw new GenderDataNotFound();
         }
