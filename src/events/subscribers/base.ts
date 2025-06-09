@@ -11,7 +11,7 @@ export class BaseSubscriber {
     this.name = name;
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
+  // eslint-disable-next-line @typescript-eslint/require-await, @typescript-eslint/no-unused-vars
   handler = async (_msg: NatsMessage): Promise<unknown> => {
     throw new Error("Not implemented");
   };

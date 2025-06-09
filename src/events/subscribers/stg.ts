@@ -18,6 +18,7 @@ const subcriber = new (class STGSubscriber extends BaseSubscriber {
 
   handler = async (msg: NatsMessage) => {
     const fileId = msg.subject.replace("stg.", "");
+    log.debug(`Received STG message for fileId: ${fileId}`);
     if (!fileId) {
       log.error(
         {
@@ -38,6 +39,7 @@ const subcriber = new (class STGSubscriber extends BaseSubscriber {
       : {
           status: "failed",
         };
+    log.debug(`Result of STG recognition: ${JSON.stringify(data)}`);
 
     await audioGenderFacade.update(fileId, data);
   };
