@@ -1,0 +1,113 @@
+version: "3"
+
+services:
+  valkey:
+    restart: always
+    image: valkey/valkey:latest
+    networks:
+      - stg-net
+    volumes:
+      - ./valkey:/data
+    healthcheck:
+      test: "valkey-cli ping"
+      interval: 5s
+      retries: 20
+
+  nats:
+    restart: always
+    image: nats:latest
+    networks:
+      - stg-net
+    volumes:
+      - ./.nats/nats-server.conf:/nats-server.conf
+      - ./nats:/data
+    command: ["-js", "-c", "/nats-server.conf"]
+
+  db:
+    restart: always
+    image: postgres:17-alpine
+    networks:
+      - stg-net
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: stg-backend
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    healthcheck:
+      test: "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"
+      interval: 5s
+      retries: 20
+
+  migrator:
+    build:
+      context: .
+      target: migrator
+    container_name: stg-migrator
+    networks:
+      - stg-net
+    environment:
+      POSTGRES_NAME: stg-backend
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  stg-subscriber:
+    build:
+      context: .
+      target: subscriber
+    container_name: stg-subscriber
+    restart: always
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    networks:
+      - stg-net
+    volumes:
+      - ./logs:/usr/src/app/logs
+    environment:
+      REDIS_HOST: valkey
+      POSTGRES_NAME: stg-backend
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      NATS_SERVERS: nats:4222
+
+  stg-backend:
+    build:
+      context: .
+      target: final
+    container_name: stg-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    networks:
+      - stg-net
+    volumes:
+      - ./logs:/usr/src/app/logs
+    environment:
+      REDIS_HOST: valkey
+      POSTGRES_NAME: stg-backend
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      NATS_SERVERS: nats:4222
+
+networks:
+  stg-net:
+    driver: bridge

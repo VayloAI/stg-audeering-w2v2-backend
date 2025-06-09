@@ -2,10 +2,14 @@
 .git
 .gitignore
 .husky
+.nats
 *.env
 
 logs/*
 tests/*
+nats/*
+valkey/*
+db/*
 
 Dockerfile
 docker-compose.yml

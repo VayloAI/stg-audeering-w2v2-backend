@@ -4,7 +4,9 @@
     "perf": "error",
     "suspicious": "warn"
   },
-  "rules": {},
+  "rules": {
+    "no-await-in-loop": "off"
+  },
   "ignorePatterns": [],
   "plugins": ["promise", "import", "eslint", "oxc", "typescript", "unicorn"]
 }
