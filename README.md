@@ -47,7 +47,13 @@ git clone https://github.com/VayloAI/component-template
 4. Install Valkey 8+
 5. Install Nats Server. Enable jetsream and configure `max_payload` to 4MB
 6. Configure `.env` if need
-7. Run
+7. Install depends:
+
+```bash
+bun install
+```
+
+8. Run
 
 for subscribers
 

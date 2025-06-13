@@ -27,8 +27,8 @@ export async function recognize(input: ArrayBuffer | Uint8Array) {
       throw new Error("Session not initialized");
     }
 
-    const audioBuffer = await decodeAudio(input);
-    let channelData = audioBuffer.getChannelData(0);
+    const audioBuffer = await decodeAudio(new Uint8Array(input));
+    let channelData: Float32Array = audioBuffer.getChannelData(0);
     if (audioBuffer.sampleRate !== REQUIRED_SAMPLE_RATE) {
       const sampler = await create(
         AUDIO_CHANNELS,

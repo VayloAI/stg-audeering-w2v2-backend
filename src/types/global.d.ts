@@ -2,6 +2,8 @@ declare module "bun" {
   interface Env {
     SERVICE_HOST: string;
     SERVICE_PORT: number;
+    SERVICE_SECRET: string;
+    SERVICE_SECRET_HEADER: string;
     LOG_TO_FILE: string;
     LOKI_HOST: string;
     LOKI_USER: string;

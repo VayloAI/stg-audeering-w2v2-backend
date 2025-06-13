@@ -13,8 +13,8 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn("female_prob", "real", (col) =>
       col.check(sql`female_prob BETWEEN 0 AND 1`),
     )
-    .addColumn("status", "varchar", (col) =>
-      col.check(sql`status in ('success', 'waiting', 'failed')`).notNull(),
+    .addColumn("status", "integer", (col) =>
+      col.check(sql`status in (-1, 0, 1, 2)`).notNull(),
     )
     .addColumn("created_at", "timestamptz", (col) =>
       col.defaultTo(sql`now()`).notNull(),

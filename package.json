@@ -9,7 +9,7 @@
     "migrate:up": "bun run migrate",
     "migrate:down": "MIGRATOR_ACTION=downgrade bun run src/database/migrator.ts",
     "start:cold": "bun run migrate && bun run start",
-    "lint": "bunx oxlint --ignore-path=.oxlintignore && bunx eslint",
+    "lint": "bunx oxlint",
     "sub:stg": "NODE_ENV=production bun run src/events/subscribers/stg.ts"
   },
   "dependencies": {
@@ -17,25 +17,24 @@
     "@elysiajs/cors": "^1.3.3",
     "@vaylo/nats": "^1.1.2",
     "@vaylo/pino": "^1.0.1",
+    "@vaylo/proto": "^0.0.2",
     "audio-decode": "^2.2.3",
     "elysia": "^1.3.4",
     "elysia-http-status-code": "^1.0.9",
-    "elysia-protobuf": "^1.0.4",
+    "elysia-protobuf": "^1.0.7",
+    "file-type": "^21.0.0",
     "ioredis": "^5.6.1",
     "kysely": "^0.28.2",
     "onnxruntime-node": "^1.22.0",
     "pg": "^8.16.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
     "@sinclair/typebox": "^0.34.33",
+    "@types/bun": "^1.2.16",
     "@types/pg": "^8.15.4",
-    "bun-types": "latest",
-    "eslint": "^9.28.0",
     "husky": "^9.1.7",
-    "oxlint": "^0.18.0",
-    "ts-proto": "^2.7.3",
-    "typescript-eslint": "^8.33.1"
+    "oxlint": "^1.1.0",
+    "ts-proto": "^2.7.4"
   },
   "type": "module",
   "module": "src/index.ts"

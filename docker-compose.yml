@@ -101,6 +101,7 @@ services:
     volumes:
       - ./logs:/usr/src/app/logs
     environment:
+      SERVICE_SECRET: changeme
       REDIS_HOST: valkey
       POSTGRES_NAME: stg-backend
       POSTGRES_HOST: db

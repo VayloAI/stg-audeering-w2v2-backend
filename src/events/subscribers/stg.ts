@@ -5,6 +5,7 @@ import { log } from "@/logging";
 import { recognize } from "@/tasks/stg";
 import { audioGenderFacade } from "@/facades/gender";
 import { AudioGenderUpdate } from "@/schemas/gender";
+import { DetectProcessStatus } from "@vaylo/proto/stg";
 
 /**
  * Every subscriber must be run separately.
@@ -18,7 +19,7 @@ const subcriber = new (class STGSubscriber extends BaseSubscriber {
 
   handler = async (msg: NatsMessage) => {
     const fileId = msg.subject.replace("stg.", "");
-    log.debug(`Received STG message for fileId: ${fileId}`);
+    log.info(`Received STG message for fileId: ${fileId}`);
     if (!fileId) {
       log.error(
         {
@@ -34,12 +35,12 @@ const subcriber = new (class STGSubscriber extends BaseSubscriber {
       ? {
           female_prob: result.female,
           male_prob: result.male,
-          status: "success",
+          status: DetectProcessStatus.SUCCESS,
         }
       : {
-          status: "failed",
+          status: DetectProcessStatus.FAILED,
         };
-    log.debug(`Result of STG recognition: ${JSON.stringify(data)}`);
+    log.info(`Result of STG recognition: ${JSON.stringify(data)}`);
 
     await audioGenderFacade.update(fileId, data);
   };

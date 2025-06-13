@@ -6,14 +6,14 @@ import {
   Updateable,
 } from "kysely";
 
-import { ProcessStatus } from "@/types/process";
+import { DetectProcessStatus } from "@/controllers/audio/proto/stg";
 
 export interface AudioGenderTable {
   id: Generated<number>;
   file_id: string;
   male_prob: number | null;
   female_prob: number | null;
-  status: ProcessStatus;
+  status: DetectProcessStatus;
   created_at: ColumnType<Date, string | undefined, never>;
 }
 

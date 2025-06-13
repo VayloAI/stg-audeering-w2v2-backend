@@ -8,6 +8,8 @@ export default Value.Parse(ConfigSchema, {
   server: {
     port: Bun.env.SERVICE_PORT,
     hostname: Bun.env.SERVICE_HOST,
+    secret: Bun.env.SERVICE_SECRET,
+    secretHeader: Bun.env.SERVICE_SECRET_HEADER,
   },
   cors: {},
   nats: {
