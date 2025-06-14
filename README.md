@@ -1,8 +1,5 @@
 ## STG audEERING W2V2 Component
 
-> [!WARNING]
-> This isn't a final version of the API. In the future, the format of responses and requests will be converted to protobuf.
-
 Uses fine-tuned W2V2 onnx model by audEERING to perform recognize gender by audio.
 
 ## Requirements
@@ -40,7 +37,7 @@ docker compose up -d
 2. Clone this repo:
 
 ```bash
-git clone https://github.com/VayloAI/component-template
+git clone https://github.com/VayloAI/stg-audeering-w2v2-backend
 ```
 
 3. Install PostgreSQL 16+
