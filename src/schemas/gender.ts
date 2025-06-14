@@ -6,7 +6,7 @@ import {
   Updateable,
 } from "kysely";
 
-import { DetectProcessStatus } from "@/controllers/audio/proto/stg";
+import { DetectProcessStatus } from "@vaylo/proto/stg";
 
 export interface AudioGenderTable {
   id: Generated<number>;
