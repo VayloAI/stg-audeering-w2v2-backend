@@ -6,7 +6,7 @@ export const ConfigSchema = t.Object({
   server: t.Object({
     port: t.Number({ default: 3000 }),
     hostname: t.String({ default: "0.0.0.0" }),
-    secret: t.String({ default: "stg-secret" }),
+    secret: t.String({ default: "changeme" }),
     secretHeader: t.String({ default: "stg-signature" }),
   }),
   nats: NatsConfig,
